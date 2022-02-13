@@ -14,8 +14,10 @@ app.use(express.json());
 
 app.get('/:id/:endpoint', async (req, res) => {
     const {id, endpoint } = req.params
+
+    console.log(id)
     
-    const url = `${process.env.API_EXT_URL}/${id}/${endpoint}`;
+    const url = `${process.env.API_EXT_URL}${id}/${endpoint}`;
     const key = process.env.API_EXT_TOKEN;
 
     console.log(url, key)
