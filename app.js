@@ -12,11 +12,13 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.get('*', async (req, res) => {
-    const endpoint = Object.values(req.params)[0]
-    console.log(endpoint)
-    const url = `${process.env.API_EXT_URL}${endpoint}`;
+app.get('/:id/:endpoint', async (req, res) => {
+    const {id, endpoint } = req.params
+    
+    const url = `${process.env.API_EXT_URL}/${id}/${endpoint}`;
     const key = process.env.API_EXT_TOKEN;
+
+    console.log(url, key)
 
     try {
         const response = await axios({
@@ -30,5 +32,9 @@ app.get('*', async (req, res) => {
         res.send(error);
       }
 });
+
+app.get('*', (req, res) => {
+ res.send('Server UP')
+})
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
