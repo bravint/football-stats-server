@@ -15,12 +15,8 @@ app.use(express.json());
 app.get('/:id/:endpoint', async (req, res) => {
     const {id, endpoint } = req.params
 
-    console.log(id)
-    
-    const url = `https://api.football-data.org/v2/competitions/${id}/${endpoint}`;
+    const url = `${process.env.API_EXT_URL}/${id}/${endpoint}`;
     const key = process.env.API_EXT_TOKEN;
-
-    console.log(url, key)
 
     try {
         const response = await axios({
@@ -36,7 +32,7 @@ app.get('/:id/:endpoint', async (req, res) => {
 });
 
 app.get('*', (req, res) => {
- res.send('Server UP')
+ res.send('Server OK')
 })
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
