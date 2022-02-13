@@ -17,7 +17,7 @@ app.get('/:id/:endpoint', async (req, res) => {
 
     console.log(id)
     
-    const url = `${process.env.API_EXT_URL}${id}/${endpoint}`;
+    const url = `https://api.football-data.org/v2/competitions/${id}/${endpoint}`;
     const key = process.env.API_EXT_TOKEN;
 
     console.log(url, key)
