@@ -12,7 +12,6 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-
 app.get('*', async (req, res) => {
     const endpoint = Object.values(req.params)[0]
     console.log(endpoint)
