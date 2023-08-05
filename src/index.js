@@ -24,7 +24,7 @@ app.get('/:id/:endpoint', async (req, res) => {
     const key = process.env.API_EXT_TOKEN;
 
     try {
-        let response = await fetch(
+        const response = await fetch(
             url,
             {
                 headers: {
@@ -32,7 +32,7 @@ app.get('/:id/:endpoint', async (req, res) => {
                 }
             },
         );
-        data = await response.json();
+        const data = await response.json();
         res.status(200).json(data);
     } catch (error) {
         res.send(error);
