@@ -4,8 +4,8 @@
   "description": "Backend for football-stats react project",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [
     "football-stats"
@@ -26,6 +26,7 @@
     "@types/express": "^4.17.17",
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.4.8",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
   }
 }
