@@ -1,8 +1,8 @@
-require('dotenv').config();
+import 'dotenv/config'
 
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/:id/:endpoint', async (req, res) => {
     const { id, endpoint } = req.params;
 
-    const url = `${process.env.API_EXT_URL}/${id}/${endpoint}`;
-    const key = process.env.API_EXT_TOKEN;
+    const url = `${process.env.API_EXT_URL!}/${id}/${endpoint}`;
+    const key = process.env.API_EXT_TOKEN!;
 
     try {
         const response = await fetch(
