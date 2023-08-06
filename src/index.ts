@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 const SERVER_MESSAGES = {
     HELLO: 'Hello World',
-    STARTED: 'server started on port',
+    STARTED: 'Server started on port',
 };
 
 app.use(cors());
@@ -29,7 +29,7 @@ app.get('/:id/:endpoint', async (req, res) => {
             {
                 headers: {
                     'X-Auth-Token': key,
-                }
+                },
             },
         );
         const data = await response.json();
