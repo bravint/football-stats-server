@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 4000;
 const SERVER_MESSAGES = {
     HELLO: 'Hello World',
     STARTED: 'Server started on port',
+    API_ERROR: 'Error fetching data from API',
 };
 
 app.use(cors());
@@ -50,7 +51,7 @@ app.get('/:id/:endpoint', async (req, res) => {
 
         res.status(200).json(data);
     } catch (error) {
-         res.status(500).json(error);
+         res.status(500).json(SERVER_MESSAGES.API_ERROR);
     } finally {
         await redisClient.quit();
     }
