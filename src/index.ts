@@ -4,6 +4,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import redisClient from './services/redis';
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -23,7 +25,17 @@ app.get('/:id/:endpoint', async (req, res) => {
     const url = `${process.env.API_EXT_URL!}/${id}/${endpoint}`;
     const key = process.env.API_EXT_TOKEN!;
 
+    const redisKey = `${id}-${endpoint}`;
+
     try {
+        await redisClient.connect();
+
+        const cachedData = await redisClient.get(redisKey);
+
+        if (cachedData) {
+            return res.status(200).json(JSON.parse(cachedData));
+        }
+
         const response = await fetch(
             url,
             {
@@ -33,9 +45,14 @@ app.get('/:id/:endpoint', async (req, res) => {
             },
         );
         const data = await response.json();
+
+        await redisClient.setEx(redisKey, 120, JSON.stringify(data));
+
         res.status(200).json(data);
     } catch (error) {
-        res.send(error);
+         res.status(500).json(error);
+    } finally {
+        await redisClient.quit();
     }
 });
 
