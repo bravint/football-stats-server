@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import redisClient from './services/redis';
+import { Leagues, Endpoints } from './enums/enums';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -13,6 +14,7 @@ const SERVER_MESSAGES = {
     HELLO: 'Hello World',
     STARTED: 'Server started on port',
     API_ERROR: 'Error fetching data from API',
+    BAD_REQUEST: 'Invalid id or endpoint',
 };
 
 app.use(cors());
@@ -23,7 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/:id/:endpoint', async (req, res) => {
     const { id, endpoint } = req.params;
 
-    const url = `${process.env.API_EXT_URL!}/${id}/${endpoint}`;
+    const leagueId = Leagues[id as Leagues];
+    const endpointId = Endpoints[endpoint as Endpoints];
+
+    if (!leagueId || !endpointId) {
+        return res.status(400).json(SERVER_MESSAGES.BAD_REQUEST);
+    }
+
+    const url = `${process.env.API_EXT_URL!}/${leagueId}/${endpointId}`;
     const key = process.env.API_EXT_TOKEN!;
 
     const redisKey = `${id}-${endpoint}`;
