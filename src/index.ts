@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const SERVER_MESSAGES = {
-    HELLO: 'Hello World',
+    PING: 'football-stats-server',
     STARTED: 'Server started on port',
     API_ERROR: 'Error fetching data from API',
     BAD_REQUEST: 'Invalid id or endpoint',
@@ -31,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 
+redisClient.connect();
+
 app.get('/:id/:endpoint', async (req, res) => {
     const { id, endpoint } = req.params;
 
@@ -47,8 +49,6 @@ app.get('/:id/:endpoint', async (req, res) => {
     const redisKey = `${id}-${endpoint}`;
 
     try {
-        await redisClient.connect();
-
         const cachedData = await redisClient.get(redisKey);
 
         if (cachedData) {
@@ -70,13 +70,11 @@ app.get('/:id/:endpoint', async (req, res) => {
         res.status(200).json(data);
     } catch (error) {
          res.status(500).json(SERVER_MESSAGES.API_ERROR);
-    } finally {
-        await redisClient.quit();
     }
 });
 
 app.get('*', (req, res) => {
-    res.send(SERVER_MESSAGES.HELLO);
+    res.send(SERVER_MESSAGES.PING);
 });
 
 app.listen(PORT, () => {
