@@ -4,6 +4,7 @@
   "description": "Backend for football-stats react project",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts"
   },
