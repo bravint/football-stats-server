@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit'
 
 import redisClient from './services/redis';
 import { Leagues, Endpoints } from './enums/enums';
+import leagues from './api/v2/routes/league';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -32,6 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 
 redisClient.connect();
+
+app.use('/v2', leagues);
 
 app.get('/:id/:endpoint', async (req, res) => {
     const { id, endpoint } = req.params;
