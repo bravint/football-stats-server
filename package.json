@@ -6,7 +6,11 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node --env-file=.env dist/index.js",
-    "dev": "nodemon --exec node --env-file=.env -r @swc-node/register src/index.ts"
+    "dev": "nodemon --exec node --env-file=.env -r @swc-node/register src/index.ts",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "keywords": [
     "football-stats"
@@ -31,7 +35,11 @@
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
     "swc": "^1.0.11",
     "swc-node": "^1.0.0",
     "typescript": "^5.4.3"
