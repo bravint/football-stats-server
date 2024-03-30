@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import redisClient from '../../services/redis';
 import { Leagues } from '../../enums/enums';
 
-export const cacheMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const cacheMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const { leagueId } = req.params;
     const sanitisedLeagueId = Leagues[leagueId as Leagues];
 
@@ -16,3 +16,5 @@ export const cacheMiddleware = async (req: Request, res: Response, next: NextFun
 
     next();
 }
+
+export default cacheMiddleware;
