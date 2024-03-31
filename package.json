@@ -9,9 +9,6 @@
     "dev": "nodemon --exec node --env-file=.env -r @swc-node/register src/index.ts",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
   "keywords": [
     "football-stats"
   ],
