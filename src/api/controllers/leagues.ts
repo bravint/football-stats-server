@@ -8,15 +8,10 @@ const getLeagueData = async (req: Request, res: Response) => {
 
     const leagueId = Leagues[id as Leagues];
     const endpointId = Endpoints[endpoint as Endpoints];
-
-    if (!leagueId || !endpointId) {
-        return res.status(400).json('new route, bad request');
-    }
+    const redisKey = `${id}-${endpoint}`;
 
     const url = `${process.env.API_EXT_URL!}/${leagueId}/${endpointId}`;
     const key = process.env.API_EXT_TOKEN!;
-
-    const redisKey = `${id}-${endpoint}`;
 
     try {
         const response = await fetch(url, {
@@ -30,7 +25,7 @@ const getLeagueData = async (req: Request, res: Response) => {
 
         res.status(200).json(data);
     } catch (error) {
-        res.status(500).json('new route, api error');
+        res.status(500).json('Error fetching data from API');
     }
 };
 

@@ -5,8 +5,6 @@ import getLeagueData from '../controllers/leagues';
 
 const router = express.Router();
 
-router.use(cacheMiddleware);
-
-router.get('/:id/:endpoint', getLeagueData);
+router.get('/:id/:endpoint', cacheMiddleware, getLeagueData);
 
 export default router;
