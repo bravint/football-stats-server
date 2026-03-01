@@ -1,30 +1,30 @@
-import type { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express';
 
-import { Endpoints, Leagues } from '../../enums/enums'
-import redisClient from '../../services/redis'
+import { Endpoints, Leagues } from '../../enums/enums';
+import redisClient from '../../services/redis';
 
 const cacheMiddleware = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
-	const { id, endpoint } = req.params
+	const { id, endpoint } = req.params;
 
-	const leagueId = Leagues[id as Leagues]
-	const endpointId = Endpoints[endpoint as Endpoints]
+	const leagueId = Leagues[id as Leagues];
+	const endpointId = Endpoints[endpoint as Endpoints];
 
 	if (!leagueId || !endpointId) {
-		return res.status(400).json('bad request')
+		return res.status(400).json('bad request');
 	}
 
-	const redisKey = `${leagueId}-${endpointId}`
-	const cachedData = await redisClient.get(redisKey)
+	const redisKey = `${leagueId}-${endpointId}`;
+	const cachedData = await redisClient.get(redisKey);
 
 	if (cachedData) {
-		return res.status(200).json(JSON.parse(cachedData))
+		return res.status(200).json(JSON.parse(cachedData));
 	}
 
-	next()
-}
+	next();
+};
 
-export default cacheMiddleware
+export default cacheMiddleware;
