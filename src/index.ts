@@ -24,18 +24,12 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS
-	? process.env.CORS_ALLOWED_ORIGINS.split(',')
-	: [];
+const allowedOrigin = process.env.CORS_ALLOWED_ORIGIN;
 
 app.use(
 	cors({
 		origin: (origin, callback) => {
-			if (!origin) {
-				return callback(null, true);
-			}
-
-			if (allowedOrigins.includes(origin)) {
+			if (!origin || origin === allowedOrigin) {
 				return callback(null, true);
 			}
 
