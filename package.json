@@ -7,7 +7,7 @@
 		"build": "tsc",
 		"typecheck": "tsgo --noEmit",
 		"start": "npm run build && node --env-file=.env dist/index.js",
-		"dev": "node --watch --env-file=.env src/index.ts",
+		"dev": "tsx watch --env-file=.env src/index.ts",
 		"prepare": "husky"
 	},
 	"keywords": [
@@ -31,6 +31,8 @@
 		"@types/node": "^24",
 		"@typescript/native-preview": "^7.0.0-dev.20260329.1",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.4.0"
+		"lint-staged": "^16.4.0",
+		"tsx": "^4.21.0",
+		"typescript": "^6.0.2"
 	}
 }
