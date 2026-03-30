@@ -18,19 +18,19 @@
 	"dependencies": {
 		"cors": "^2.8.6",
 		"express": "^5.2.1",
-		"express-rate-limit": "^8.2.2",
+		"express-rate-limit": "^8.3.2",
 		"morgan": "^1.10.1",
 		"redis": "^5.11.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.4",
+		"@biomejs/biome": "2.4.10",
 		"@tsconfig/node-lts": "^24.0.0",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
 		"@types/morgan": "^1.9.10",
-		"@types/node": "^25",
+		"@types/node": "^24",
 		"@typescript/native-preview": "^7.0.0-dev.20260329.1",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.3.1"
+		"lint-staged": "^16.4.0"
 	}
 }
