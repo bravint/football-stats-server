@@ -24,7 +24,20 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-app.use(cors());
+const allowedOrigin = process.env.CORS_ALLOWED_ORIGIN;
+
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (!origin || origin === allowedOrigin) {
+				return callback(null, true);
+			}
+
+			callback(new Error(`CORS: origin ${origin} not allowed`));
+		},
+	})
+);
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

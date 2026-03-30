@@ -5,8 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
+		"typecheck": "tsgo --noEmit",
 		"start": "npm run build && node --env-file=.env dist/index.js",
-		"dev": "nodemon --exec node --env-file=.env -r @swc-node/register src/index.ts",
+		"dev": "tsx watch --env-file=.env src/index.ts",
 		"prepare": "husky"
 	},
 	"keywords": [
@@ -17,21 +18,21 @@
 	"dependencies": {
 		"cors": "^2.8.6",
 		"express": "^5.2.1",
-		"express-rate-limit": "^8.2.2",
+		"express-rate-limit": "^8.3.2",
 		"morgan": "^1.10.1",
 		"redis": "^5.11.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.4",
-		"@swc-node/register": "^1.11.1",
+		"@biomejs/biome": "2.4.10",
 		"@tsconfig/node-lts": "^24.0.0",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
 		"@types/morgan": "^1.9.10",
-		"@types/node": "^25",
+		"@types/node": "^24",
+		"@typescript/native-preview": "^7.0.0-dev.20260329.1",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.3.1",
-		"nodemon": "^3.1.14",
-		"typescript": "^5.9.3"
+		"lint-staged": "^16.4.0",
+		"tsx": "^4.21.0",
+		"typescript": "^6.0.2"
 	}
 }
